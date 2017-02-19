@@ -1,0 +1,103 @@
+<?php
+    $session = true;
+if( session_status() === PHP_SESSION_DISABLED  )
+    $session = false;
+elseif( session_status() !== PHP_SESSION_ACTIVE )
+{
+    session_start();      }    ?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+   <head>
+   <title>AirOwl web</title>
+   <meta name="author" content="Silvia Manca" >
+   <meta name="keywords" content="voli">
+   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <link rel="start" href="home.php">
+   <link rel="next" href="voli.php">
+   <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+   <body>
+   <?php
+            if(!$session)
+            {  echo "<p>SESSIONS DISABLED, impossible to continue.</p>\n";      }
+            else
+            {
+        ?>
+  <div id="header"> <h1>AirOwl Web</h1> </div>
+  <?php
+    require("menu.php");
+      ?>
+    <div id="content">
+      <?php    
+      
+      if(!isset($_SESSION['username']))
+          { echo "Page available only for logged user. Login to see and buy the flyghts!";       }
+
+          else {
+        $con = mysqli_connect("localhost", "id801734_unormalfly", "pass1", "id801734_flying");
+      if (mysqli_connect_errno())
+	echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
+      	else
+       {
+
+    foreach($_REQUEST as $x => $y)
+   {
+     if($x!='') {
+    $sql = "SELECT `fsrc`, `fdst` FROM fly WHERE fid ='$x'";
+    $resul = mysqli_query($con, $sql);
+           if(!$resul)
+          echo "<tr><td colspan='4'>Error – failed query: ".mysqli_error($con)."</td></tr>";
+                else
+            {while($row = mysqli_fetch_assoc($resul))
+          {$part =  $row['fsrc'];
+            $dest = $row['fdst'];
+            }
+
+    $query = "SELECT * FROM fly WHERE fsrc = '$part' AND fdst= '$dest'";
+    $result = mysqli_query($con, $query);
+           if(!$result)
+          echo "<tr><td colspan='4'>Error – failed query: ".mysqli_error($con)."</td></tr>";
+                else
+            {
+
+           echo "<form name='elenco_tratte' action='carrello.php' method='POST'>";
+           echo "<table><tr><th>Date of Departure</th><th>Time of Departure</th><th>Time of Arrival</th><th>Price</th><th>Available Seats</th><th>Select</th><th>Number of seats to buy</th></tr>";
+          while($row = mysqli_fetch_assoc($result))
+          {
+           echo "<tr><td>".(date('d.m.Y',strtotime("$row[fday]")))."</td><td>".(date('H:i',strtotime("$row[ftsrc]")))."</td><td>".(date('H:i',strtotime("$row[ftdst]")))."</td><td>$row[fprice]&euro;</td><td>$row[fseat]</td>";
+          echo"<td><input type='checkbox' name='cbox[]' value='$row[fid]'></td>";
+                echo "<td><input type='text' size='5' name='box[$row[fid]]'></td>";
+
+                 }
+                 echo "<td><input type=\"submit\" value=\"Buy\"></td>";
+               echo "<td><input type=\"reset\" value=\"Cancel\"></td></tr>";     }
+          mysqli_free_result($result);
+                }   }}
+         mysqli_close($con);    }
+          echo "</table></form>";
+        echo "<p><input type=\"button\" value=\"Back\" onclick=\"window.location='voli.php'\"></p>";
+
+          }                ?>
+
+      </div>
+      <?php
+            require("utente.php");
+       ?>
+       
+
+ <div id="footer">
+
+<ul><li> Page:
+ <?php echo basename($_SERVER['PHP_SELF'])?> </li>
+ <li>Author: silvia(ma)   </li> </ul>
+
+</div>
+<?php
+        	}
+        ?>
+      </body>
+      </html>

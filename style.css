@@ -1,0 +1,46 @@
+#header {background-image: url(sfondo.jpg); padding:3%;  background-repeat:repeat;  }
+
+#menu a:link {color: black; text-decoration: none}
+#menu a:hover {font-weight : bold;}
+#menu a:visited {color: black}
+#menu {clear:left; float:left; width: 15%; background-color: #C8E2FF; min-width: 15ex; margin-top: 1%; text-align: center; }
+#menu ul {line-height: 250%; padding-left: 2ex; padding-right: 2ex;   }
+#menu li {border-bottom-style: ridge; border-color: #EBF7ED; text-align:left  }
+
+#content {float: left; width: 65%; padding-left:2%;padding-top:1%;  }
+
+#utente { float:right; width: 12%; background-color: #C8E2FF; font-style: italic; margin-top: 1%; min-width: 15ex }
+
+
+ul {list-style-type: none; margin-left: 0; padding-left: 3%;  }
+
+#footer {font-style: italic; text-align: right; font-size: small;  clear: both; border-top-style: solid; border-top-width: medium; border-top-color: #0B3B90; }
+
+body {font-family: arial, helvetica, verdana, sans-serif; min-width: 80ex; background-color: #EBF7ED; color: black; }
+
+
+
+h1 {font-family: "comic sans MS", serif; color: #C8E2FF; text-align: center; font-size: 250%;}
+h2 {font-size: 120%}
+
+
+
+#content table{
+    border-collapse: collapse;
+        border-spacing:0;
+	width:80%;
+	height:50%;
+	margin:5px;padding:0px;
+        margin-left:auto;
+        margin-right:auto; }
+
+
+#content td{
+	vertical-align:middle;
+	background-color:#C8E2FF;
+        border:1px solid #EBF7ED;
+	border-width:0px 1px 1px 0px;
+	text-align:left;
+	padding:7px; }
+
+#content span:hover { background-color:#ffffff;}
