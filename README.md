@@ -1,4 +1,4 @@
-# simple
+# HOW WORKS THIS WEBSITE
 
 The aim of this web site is to buy  plane tickets.
 If the user is not logged, in the menu right there is the ANONIMOUS written and the form to login.
